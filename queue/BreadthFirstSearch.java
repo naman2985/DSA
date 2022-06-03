@@ -3,17 +3,17 @@ import java.util.*;
 
 class Graph{
 	private int V;
-	private LinkedList<Integer> adj[];//adjacency matrix
+	private LinkedList<LinkedList<Integer>> adj;//adjacency matrix
 	Graph(int v){
 		V = v;
-		adj = new LinkedList[v];
+		adj = new LinkedList<>();
 		for(int i=0;i<v;i++) {
-			adj[i] = new LinkedList<>();
+			adj.add(new LinkedList<>());
 		}
 	}
 	
 	void addEdge(int u,int v) {
-		adj[u].add(v);
+		adj.get(u).add(v);
 	}
 	
 	public void BFS(int s) {
@@ -24,7 +24,7 @@ class Graph{
 		while(!q.isEmpty()) {
 			s = q.poll();
 			System.out.print(s+" ");
-			Iterator<Integer> i = adj[s].listIterator();
+			Iterator<Integer> i = adj.get(s).listIterator();
 			while(i.hasNext()) {
 				int x = i.next();
 				if(!v[x]) {
