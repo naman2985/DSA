@@ -4,3 +4,5 @@
 /recursion
 /stack
  module-info.java
+.gitignore
+.git
