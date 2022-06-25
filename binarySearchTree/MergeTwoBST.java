@@ -1,70 +1,47 @@
 package binarySearchTree;
 
-import java.util.Stack;
+import java.util.*;
+
+class Node  
+{ 
+    int data; 
+    Node left, right; 
+   
+    public Node(int d)  
+    { 
+        data = d; 
+        left = right = null; 
+    } 
+}
 
 public class MergeTwoBST {
-	static void merge(BST root1,BST root2) {
-		Stack<BST> s1 = new Stack<>();
-		BST c1 = root1;
-		Stack<BST> s2 = new Stack<>();
-		BST c2 = root2;
-		if(root1 == null) {
-			root2.inorder();
-			return;
-		}
-		if(root2 == null) {
-			root1.inorder();
-			return;
-		}
-		while(c1 != null || !s1.isEmpty() || c2 != null || s2.isEmpty()) {
-			if(c1 != null || c2 != null) {
-				if(c1 != null) {
-					s1.push(c1);
-					c1 = c1.left;
-				}
-				if(c2 != null) {
-					s2.push(c2);
-					c2 = c2.left;
-				}
-			}
-			else {
-				if(s1.isEmpty()) {
-					BST temp;
-					while(!s2.isEmpty()) {
-						c2 = s2.pop();
-						temp = c2.left;
-						c2.left = null;
-						c2.inorder();
-						c2.left = temp;
-					}
-					return;
-				}
-				if(s2.isEmpty()) {
-					BST temp;
-					while(!s1.isEmpty()) {
-						c1 = s1.pop();
-						temp = c1.left;
-						c1.left = null;
-						c1.inorder();
-						c1.left = temp;
-					}
-					return;
-				}
-				c1 = s1.pop();
-				c2 = s2.pop();
-				if(c1.val < c2.val) {
-					System.out.print(c1.val + " ");
-					c1 = c1.right;
-					s2.push(c2);
-					c2 = null;
-				}
-				else {
-					System.out.print(c2.val + " ");
-					c2 = c2.right;
-					s1.push(c1);
-					c1 = null;
-				}
-			}
-		}
-	}
+	static void fill(Node root,List<Integer> list){
+        if(root!=null){
+            fill(root.left,list);
+            list.add(root.data);
+            fill(root.right,list);
+        }
+    }
+    static List<Integer> mergeList(List<Integer> l1,List<Integer> l2){
+        List<Integer> merged=new ArrayList<>();
+        int n1=l1.size(),n2=l2.size(),i=0,j=0;
+        while(i<n1 && j<n2){
+            if(l1.get(i)<l2.get(j)){
+                merged.add(l1.get(i++));
+            }
+            else merged.add(l2.get(j++));
+        }
+        while(i<n1) merged.add(l1.get(i++));
+        while(j<n2) merged.add(l2.get(j++));
+        return merged;
+    }
+    public List<Integer> merge(Node root1,Node root2)
+    {
+        // Write your code here
+        List<Integer> l1=new ArrayList<>();
+        List<Integer> l2=new ArrayList<>();
+        fill(root1,l1);
+        fill(root2,l2);
+        return mergeList(l1,l2);
+    }
 }
