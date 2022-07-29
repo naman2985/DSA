@@ -3,7 +3,7 @@ package binarySearchTree;
 import linkedList.LinkedList;
 
 public class SortedLinkListToBST {
-	static BST convertToTree(LinkedList<Integer> start,LinkedList<Integer> end){
+	static BST convertToTree(LinkedList start,LinkedList end){
         if(end == null) return null;
         if(start == end) return new BST(start.val);
         if(start.next == end){
@@ -11,7 +11,7 @@ public class SortedLinkListToBST {
             temp.left = new BST(start.val);
             return temp;
         }
-        LinkedList<Integer> fast = start,slow = start,prev = null;
+        LinkedList fast = start,slow = start,prev = null;
         while(fast != end){
             fast = fast.next;
             prev = slow;
@@ -24,10 +24,10 @@ public class SortedLinkListToBST {
         tree.right = convertToTree(slow.next,end);
         return tree;
     }
-    public static BST sortedListToBST(LinkedList<Integer> head)
+    public static BST sortedListToBST(LinkedList head)
     {
         //code here
-    	LinkedList<Integer> temp = head;
+    	LinkedList temp = head;
         while(temp.next != null) temp = temp.next;
         return convertToTree(head,temp);
     }

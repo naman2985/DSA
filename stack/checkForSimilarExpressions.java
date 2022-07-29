@@ -6,7 +6,7 @@
 
 package stack;
 import java.util.Stack;
-public class checkForSimilarExpressions {
+public class CheckForSimilarExpressions {
 	static boolean localSign(String s,int i) {
 		if(i==0) return true;
 		if(s.charAt(i-1)=='-') return false;

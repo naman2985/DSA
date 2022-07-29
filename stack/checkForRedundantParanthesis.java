@@ -5,7 +5,7 @@ import java.util.Stack;
  * Given an arithmetic expression in form of a string. Find out whether it has redundant parenthesis or not. 
  * */
 
-public class checkForRedundantParanthesis {
+public class CheckForRedundantParanthesis {
 	static boolean check(String s) {
 		Stack<Character> st=new Stack<>();
 		int n=s.length();
